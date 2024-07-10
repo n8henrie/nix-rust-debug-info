@@ -33,9 +33,7 @@ main() {
     esac
   )
 
-  [[ -z "${builddir}" ]] && {
-    errexit "could not find builddir"
-  }
+  [[ -z "${builddir}" ]] && errexit "could not find builddir"
 
   rust-lldb -o "settings set target.source-map ${builddir} ." "${binary}"
 }
