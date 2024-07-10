@@ -1,2 +1,2 @@
 - https://github.com/NixOS/nixpkgs/issues/282900
-- https://github.com/NixOS/nixpkgs/issues/262131"
+- https://github.com/NixOS/nixpkgs/issues/262131
