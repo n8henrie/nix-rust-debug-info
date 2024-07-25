@@ -14,7 +14,6 @@
   "function-sections": false,
   "has-rpath": true,
   "has-thread-local": true,
-  "is-builtin": true,
   "is-like-osx": true,
   "link-env": [
     "ZERO_AR_DATE=1"
