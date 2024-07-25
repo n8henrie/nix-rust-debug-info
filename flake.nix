@@ -30,7 +30,7 @@
                 rust = {
                   # rustcTarget = "highly-unlikely";
                   # platform = builtins.fromJSON (builtins.readFile ./target.json);
-                  rustcTargetSpec = ./target.json;
+                  rustcTargetSpec = ./target_${system}.json;
                 };
               };
             };
