@@ -30,7 +30,12 @@
                 rust = {
                   # rustcTarget = "highly-unlikely";
                   # platform = builtins.fromJSON (builtins.readFile ./target.json);
-                  rustcTargetSpec = ./${system}.json;
+                  rustcTargetSpec =
+                    {
+                      aarch64-darwin = "aarch64-apple-darwin.json";
+                      x86_64-linux = "x86_64-unknown-linux-gnu.json";
+                    }
+                    .${system};
                 };
               };
             };
