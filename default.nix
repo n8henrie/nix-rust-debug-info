@@ -10,4 +10,7 @@ rustPlatform.buildRustPackage {
 
   # incompatible with sysroot
   doCheck = false;
+
+  # Required for no_std apparently
+  RUSTFLAGS = "-Cpanic=abort";
 }

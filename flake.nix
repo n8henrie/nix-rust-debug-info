@@ -28,12 +28,11 @@
               crossSystem = {
                 inherit system;
                 rust = {
-                  # rustcTarget = "highly-unlikely";
-                  # platform = builtins.fromJSON (builtins.readFile ./target.json);
+                  rustcTarget = "x86_64-unknown-linux-gnu";
                   rustcTargetSpec =
                     {
-                      aarch64-darwin = "aarch64-apple-darwin.json";
-                      x86_64-linux = "x86_64-unknown-linux-gnu.json";
+                      aarch64-darwin = ./aarch64-apple-darwin.json;
+                      x86_64-linux = ./x86_64-unknown-linux-gnu.json;
                     }
                     .${system};
                 };
