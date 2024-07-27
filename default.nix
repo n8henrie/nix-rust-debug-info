@@ -12,5 +12,5 @@ rustPlatform.buildRustPackage {
   doCheck = false;
 
   # Required for no_std apparently
-  RUSTFLAGS = "-Cpanic=abort";
+  RUSTFLAGS = "-Cpanic=abort ";
 }
