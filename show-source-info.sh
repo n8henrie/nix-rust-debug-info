@@ -4,13 +4,14 @@ set -Eeuf -o pipefail
 set -x
 
 main() {
-  nix flake update nixpkgs
-  nix build .#sysroot --out-link ./result-sysroot --option sandbox false
-  nix build --option sandbox false
+  nix flake lock --update-input nixpkgs
+  nix build .#sysroot --out-link ./result-sysroot
+  nix build
 
   ls ./result/bin/
 
-  # rust-lldb result/bin/nix-rust-debug-info \
+  # nix shell nixpkgs#rustc nixpkgs#lldb -c \
+  #   rust-lldb result/bin/nix-rust-debug-info \
   #   --batch \
   #   -o 'break set --name nix_rust_debug_info::a_function' \
   #   -o 'process launch' \
