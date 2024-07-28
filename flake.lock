@@ -2,10 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "dirtyRev": "26cd3b094060f0cb96027efc1dec0a654a6ce111-dirty",
-        "dirtyShortRev": "26cd3b094060-dirty",
-        "lastModified": 1722107770,
+        "lastModified": 1722171001,
         "narHash": "sha256-ItmXo9BVSwO0d/k3w8+Qx/XTQjyCzzJuCbX9ll8JZto=",
+        "ref": "refs/heads/nix-rust-debug",
+        "rev": "f0a90d6566df6b41c0a955567db55b0afb4e9a5f",
+        "revCount": 651863,
         "type": "git",
         "url": "file:///Users/n8henrie/git/nixpkgs"
       },
