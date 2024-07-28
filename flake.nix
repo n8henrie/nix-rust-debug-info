@@ -4,8 +4,8 @@
     https://github.com/NixOS/nixpkgs/issues/262131
   '';
   # inputs.nixpkgs.url = "github:nixos/nixpkgs";
-  # inputs.nixpkgs.url = "github:n8henrie/nixpkgs/nix-rust-debug";
-  inputs.nixpkgs.url = "/Users/n8henrie/git/nixpkgs";
+  inputs.nixpkgs.url = "github:n8henrie/nixpkgs/nix-rust-debug";
+  # inputs.nixpkgs.url = "/Users/n8henrie/git/nixpkgs";
   # inputs.nixpkgs.url = "/home/n8henrie/git/nixpkgs";
   outputs =
     { nixpkgs, ... }:
@@ -21,24 +21,27 @@
         f: foldAttrs mergeAttrs { } (map (s: mapAttrs (_: v: { ${s} = v; }) (f s)) systems);
     in
     eachSystem (system: {
-      packages = {
-        default = nixpkgs.legacyPackages.${system}.callPackage ./. { };
-        sysroot =
-          let
-            pkgs = import nixpkgs {
+      packages =
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          sysrootPkgs = import nixpkgs {
+            inherit system;
+            crossSystem = {
               inherit system;
-              crossSystem = {
-                inherit system;
-                rust.rustcTargetSpec =
-                  {
-                    aarch64-darwin = ./aarch64-apple-darwin.json;
-                    x86_64-linux = ./x86_64-unknown-linux-gnu.json;
-                  }
-                  .${system};
-              };
+              rust.rustcTargetSpec =
+                {
+                  aarch64-darwin = ./aarch64-apple-darwin.json;
+                  x86_64-linux = ./x86_64-unknown-linux-gnu.json;
+                }
+                .${system};
             };
-          in
-          pkgs.callPackage ./. { };
-      };
+          };
+        in
+        {
+          debug = pkgs.callPackage ./. { buildType = "debug"; };
+          release = pkgs.callPackage ./. { buildType = "release"; };
+          sysroot-debug = sysrootPkgs.callPackage ./. { buildType = "debug"; };
+          sysroot-release = sysrootPkgs.callPackage ./. { buildType = "release"; };
+        };
     });
 }

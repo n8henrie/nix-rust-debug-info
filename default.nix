@@ -1,7 +1,11 @@
-{ lib, rustPlatform }:
+{
+  lib,
+  rustPlatform,
+  buildType ? "release",
+}:
 rustPlatform.buildRustPackage {
   inherit ((builtins.fromTOML (builtins.readFile ./Cargo.toml)).package) name;
-  buildType = "debug";
+  inherit buildType;
   dontStrip = true;
   version = "0.0.1";
   src = lib.cleanSource ./.;
