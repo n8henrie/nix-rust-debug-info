@@ -9,12 +9,12 @@ main() {
   nix flake lock --update-input nixpkgs
 
   if [[ "$(uname -s)" != Darwin ]]; then
-    nix build .#sysroot-debug --out-link ./result-sysroot-debug
-    nix build .#sysroot-release --out-link ./result-sysroot-release
+    nix build --no-eval-cache .#sysroot-debug --out-link ./result-sysroot-debug --print-build-logs --show-trace
+    nix build --no-eval-cache .#sysroot-release --out-link ./result-sysroot-release --print-build-logs --show-trace
   fi
 
-  nix build .#debug --option sandbox false --out-link ./result-debug
-  nix build .#release --option sandbox false --out-link ./result-release
+  nix build .#debug --option sandbox false --out-link ./result-debug --show-trace
+  nix build .#release --option sandbox false --out-link ./result-release --show-trace
 
   nix shell nixpkgs#rustc nixpkgs#lldb -c \
     rust-lldb result-debug/bin/nix-rust-debug-info \
