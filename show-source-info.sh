@@ -4,17 +4,22 @@ set -Eeuf -o pipefail
 set -x
 
 main() {
+  local args=(
+    --option sandbox false
+    --show-trace
+    --print-build-logs
+    --override-input nixpkgs ~/git/nixpkgs
+  )
+
   rm -f ./result-debug ./result-release ./result-sysroot-debug ./result-sysroot-release
 
-  nix flake lock --update-input nixpkgs
-
   if [[ "$(uname -s)" != Darwin ]]; then
-    nix build --no-eval-cache .#sysroot-debug --out-link ./result-sysroot-debug --print-build-logs --show-trace
-    nix build --no-eval-cache .#sysroot-release --out-link ./result-sysroot-release --print-build-logs --show-trace
+    nix build .#sysroot-debug --out-link ./result-sysroot-debug "${args[@]}"
+    nix build .#sysroot-release --out-link ./result-sysroot-release "${args[@]}"
   fi
 
-  nix build .#debug --option sandbox false --out-link ./result-debug --show-trace
-  nix build .#release --option sandbox false --out-link ./result-release --show-trace
+  nix build .#debug --out-link ./result-debug "${args[@]}"
+  nix build .#release --option sandbox false --out-link ./result-release "${args[@]}"
 
   nix shell nixpkgs#rustc nixpkgs#lldb -c \
     rust-lldb result-debug/bin/nix-rust-debug-info \
