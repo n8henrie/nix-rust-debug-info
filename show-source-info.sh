@@ -8,8 +8,9 @@ main() {
     --option sandbox false
     --show-trace
     --print-build-logs
-    --override-input nixpkgs ~/git/nixpkgs
   )
+
+  [[ -d ~/git/nixpkgs ]] && args+=(--override-input nixpkgs ~/git/nixpkgs)
 
   rm -f ./result-debug ./result-release ./result-sysroot-debug ./result-sysroot-release
 
