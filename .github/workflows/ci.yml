@@ -6,9 +6,21 @@ on:
   pull_request:
 
 jobs:
-  nix:
-    name: build in nix
+  nix-macos:
+    name: build in nix on macos
     runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v13
+      - uses: DeterminateSystems/magic-nix-cache-action@v0.1
+      - name: build
+        run: |
+          set -x
+          ./show-source-info.sh
+
+  nix-linux:
+    name: build in nix on linux
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v13
