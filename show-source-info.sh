@@ -31,7 +31,8 @@ main() {
     --batch \
     -o 'break set --name nix_rust_debug_info::a_function' \
     -o 'process launch' \
-    -o 'source info'
+    -o 'source info' ||
+    true
 
   find . -maxdepth 1 -name 'result-*' -exec ls -A {}/bin \;
 }
