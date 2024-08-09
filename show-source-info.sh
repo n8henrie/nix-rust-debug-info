@@ -10,7 +10,11 @@ main() {
     --print-build-logs
   )
 
-  [[ -d ~/git/nixpkgs ]] && args+=(--override-input nixpkgs ~/git/nixpkgs)
+  if [[ -d ~/git/nixpkgs ]]; then
+    args+=(--override-input nixpkgs ~/git/nixpkgs)
+  else
+    nix flake lock --update-input nixpkgs
+  fi
 
   rm -f ./result-debug ./result-release ./result-sysroot-debug ./result-sysroot-release
 
