@@ -5,6 +5,7 @@
   '';
   # inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.nixpkgs.url = "github:n8henrie/nixpkgs/nix-rust-debug";
+  # inputs.nixpkgs.url = "github:eljamm/nixpkgs/nix-rust-debug-4";
   # inputs.nixpkgs.url = "/Users/n8henrie/git/nixpkgs";
   # inputs.nixpkgs.url = "/home/n8henrie/git/nixpkgs";
   outputs =
